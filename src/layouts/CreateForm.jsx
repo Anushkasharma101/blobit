@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { imageDB } from "../firebase/firebase";
 import { getDownloadURL, uploadBytes, ref } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { useParams } from "react-router-dom";
+
 
 const CreateForm = () => {
   const { id } = useParams(); 
@@ -14,6 +15,7 @@ const CreateForm = () => {
     blogDetail: [],
     
   });
+  const [coverImage,setCoverImage] = useState('');
   useEffect(() => {
     const fetchBlog = async () => {
       try {
@@ -40,9 +42,10 @@ const CreateForm = () => {
 
   const [selectedOption, setSelectedOption] = useState("Heading 1");
   const [coverImgOption, setCoverImgOption] = useState("device");
-  const [img, setImg] = useState(null);
+
 
   const handleInputChange = (e) => {
+
     const { name, value, files } = e.target;
 console.log("cover imageeeee","name:-",name,"value:- ",value,"file:- ",files);
 
@@ -51,8 +54,10 @@ console.log("cover imageeeee","name:-",name,"value:- ",value,"file:- ",files);
       coverImgOption === "device" &&
       files.length > 0
     ) {
-      setImg(files[0]);
-      uploadCoverImage();
+      console.log("arnavvvvvvv");
+
+      console.log("cover imageeeee",files[0]);
+      uploadCoverImage(files[0]);
     } else if (name === "coverImg" && coverImgOption === "url") {
       setBlogData((prevData) => ({ ...prevData, coverImg: value }));
     } else {
@@ -60,7 +65,7 @@ console.log("cover imageeeee","name:-",name,"value:- ",value,"file:- ",files);
     }
   };
 
-  const uploadCoverImage = async () => {
+  const uploadCoverImage = async (img) => {
     try {
       if (img) {
         console.log("Starting upload...");
@@ -126,7 +131,7 @@ console.log("cover imageeeee","name:-",name,"value:- ",value,"file:- ",files);
   };
   const handleSubmit = async () => {
     try {
-      // Wait for the state to be updated with the cover image URL before submission
+
       console.log("Blog Data on Submit....:", blogData);
       const api = id === 'id' ? 'https://assignment-blobit-backend.onrender.com/api/blogs': `https://assignment-blobit-backend.onrender.com/api/blogs/${id}`
       const response = await fetch(api, {

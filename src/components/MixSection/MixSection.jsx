@@ -7,7 +7,6 @@ const MixSection = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    // Fetch blogs when component mounts or currentPage changes
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
@@ -60,7 +59,7 @@ const MixSection = () => {
         throw new Error("Failed to delete blog");
       }
 
-      setBlogs(blogs.filter((blog) => blog._id !== id)); // Update the local state to remove the deleted blog
+      setBlogs(blogs.filter((blog) => blog._id !== id)); 
       alert("Blog deleted successfully");
     } catch (error) {
       console.error("Error deleting blog:", error);
@@ -77,7 +76,6 @@ const MixSection = () => {
           expert knowledge just for you!
         </p>
       </div>
-      
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-2 gap-y-2 mt-5">
         {blogs.map((blog) => (
