@@ -1,24 +1,28 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from './components/Header/Header';
+import HomePage from './layouts/HomePage';
+import Footer from './components/Footer/Footer'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CreateForm from './layouts/CreateForm';
+import BlogDetail from './layouts/BlogDetail';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <div className='parentDiv w-screen h-screen overflow-auto relative'>
+          <Header/>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/create/:id" element={<CreateForm/>}/>
+            <Route path="/blogs/:id" element={<BlogDetail />} />
+          </Routes>
+          <Footer/>
+         
+        </div>
+      </div>
+    </Router>
   );
 }
 
